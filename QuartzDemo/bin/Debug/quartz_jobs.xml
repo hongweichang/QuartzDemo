@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file contains job definitions in schema version 2.0 format -->
+
+<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+  </processing-directives>
+
+  <schedule>
+
+    <!--划扣银行卡 任务配置-->
+    <job>
+      <name>BankCardJob</name>
+      <group>BankCard</group>
+      <description>划扣银行卡</description>
+      <job-type>QuartzDemo.QuartzJobs.BankCardJob,QuartzDemo</job-type>  <!--命名空间+当前类,程序集-->
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+    <trigger>
+      <cron>
+        <name>BankCardJobTrigger</name>
+        <group>BankCard</group>
+        <job-name>BankCardJob</job-name>
+        <job-group>BankCard</job-group>
+        <start-time>2015-01-22T00:00:00+08:00</start-time>
+        <cron-expression>0/5 * * * * ?</cron-expression>  <!--5秒执行一次-->
+      </cron>
+    </trigger>
+
+    <!--TestJob测试 任务配置-->
+    <job>
+      <name>TestJob</name>
+      <group>Test</group>
+      <description>TestJob测试</description>
+      <job-type>QuartzDemo.QuartzJobs.TestJob,QuartzDemo</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+    <trigger>
+      <cron>
+        <name>TestJobTrigger</name>
+        <group>Test</group>
+        <job-name>TestJob</job-name>
+        <job-group>Test</job-group>
+        <start-time>2015-01-22T00:00:00+08:00</start-time>
+        <cron-expression>0/3 * * * * ?</cron-expression> <!--3秒执行一次-->
+      </cron>
+    </trigger>
+    
+  </schedule>
+</job-scheduling-data>
